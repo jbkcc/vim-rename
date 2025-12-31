@@ -1,0 +1,81 @@
+*rename.txt*  Rename and move files from within Vim
+
+Author:  Joshua Kopin
+License: Same terms as Vim itself (see |license|)
+
+==============================================================================
+CONTENTS                                                    *rename-contents*
+
+    1. Introduction ...................... |rename-introduction|
+    2. Commands .......................... |rename-commands|
+    3. Examples .......................... |rename-examples|
+    4. Requirements ...................... |rename-requirements|
+
+==============================================================================
+1. INTRODUCTION                                         *rename-introduction*
+
+rename.vim provides commands to rename or move open files, akin to Fugitive's
+:GMove and :GRename but without the git.
+
+The plugin handles:
+- Moving files to different directories
+- Renaming files in place
+- Creating destination directories as needed
+- Optional overwriting of existing files
+
+==============================================================================
+2. COMMANDS                                               *rename-commands*
+
+                                                                     *:FMove*
+:FMove {path}[!]
+  Move the current file to {path}. The {path} can be relative or absolute.
+  
+  To overwrite an existing destination file, use !.
+  
+  Behind the scenes, the current buffer is closed and reopened with the file in
+  the new location.
+
+                                                                   *:FRename*
+:FRename {filename}[!]
+  Rename the current file to {filename} in its same directory.  Unlike
+  |:FMove|, this command only accepts a filename, not a path.
+  
+  To overwrite an existing destination file, use !.
+  
+  Behind the scenes, the current buffer is closed and reopened with the file in
+  the new location.
+
+==============================================================================
+3. EXAMPLES                                               *rename-examples*
+
+Rename a file in the same directory: >
+  :FRename newfilename.txt
+<
+
+Move a file to a different directory: >
+  :FMove ../config/settings.vim
+<
+
+Move a file to an absolute path: >
+  :FMove /home/user/documents/myfile.txt
+<
+
+Move a file and create parent directories if needed: >
+  :FMove path/to/new/nested/directory/file.txt
+<
+
+Overwrite an existing destination file: >
+  :FRename existingfile.txt!
+<
+
+==============================================================================
+4. REQUIREMENTS                                       *rename-requirements*
+
+- Vim 8.0 or later
+- 'nocompatible' mode (|nocompatible|)
+
+The plugin is written in Vimscript and has no external dependencies.
+
+==============================================================================
+
+vim:tw=78:et:ft=help:norl:
