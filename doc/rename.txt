@@ -15,7 +15,7 @@ CONTENTS                                                    *rename-contents*
 1. INTRODUCTION                                         *rename-introduction*
 
 rename.vim provides commands to rename or move open files, akin to Fugitive's
-:GMove and :GRename but without the git.
+:GMove and :GRename but without all the Git.
 
 The plugin handles:
 - Moving files to different directories
@@ -27,45 +27,31 @@ The plugin handles:
 2. COMMANDS                                               *rename-commands*
 
                                                                      *:FMove*
-:FMove {path}[!]
-  Move the current file to {path}. The {path} can be relative or absolute.
-  
-  To overwrite an existing destination file, use !.
-  
-  Behind the scenes, the current buffer is closed and reopened with the file in
-  the new location.
+:FMove[!] {path}
+  Move the current file to {path}.
+  Add a ! to overwrite an existing file at {path}.
 
                                                                    *:FRename*
-:FRename {filename}[!]
-  Rename the current file to {filename} in its same directory.  Unlike
-  |:FMove|, this command only accepts a filename, not a path.
-  
-  To overwrite an existing destination file, use !.
-  
-  Behind the scenes, the current buffer is closed and reopened with the file in
-  the new location.
+:FRename[!] {filename}
+  Rename the current file to {filename}, leaving it in its same directory.
+  Add a ! to overwrite an existing file at {filename}.
 
 ==============================================================================
 3. EXAMPLES                                               *rename-examples*
 
-Rename a file in the same directory: >
-  :FRename newfilename.txt
+Supposing you had the file {some/where/old.txt} open in a buffer, rename it in
+the same directory: >
+  :FRename new.txt " Now the open file is some/where/new.txt
+
+  " And you can overwrite existing files with !
+  :FRename! existingfile.txt
 <
 
-Move a file to a different directory: >
-  :FMove ../config/settings.vim
-<
+Or move it to a different directory, creating directories as needed: >
+  :FMove some/other/place.txt
 
-Move a file to an absolute path: >
-  :FMove /home/user/documents/myfile.txt
-<
-
-Move a file and create parent directories if needed: >
-  :FMove path/to/new/nested/directory/file.txt
-<
-
-Overwrite an existing destination file: >
-  :FRename existingfile.txt!
+  " Absolute paths work
+  :FMove /path/to/new/nested/directory/file.txt
 <
 
 ==============================================================================
